@@ -1,0 +1,26 @@
+<!-- show user's entry -->
+
+{% extends 'base.html' %}
+{% block title %}
+Avaliable Entries
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+Welcome to your personal diary, {{ user|title }}! <br>
+Not you? Please <a href="{% url 'custom_logout' %}">logout</a>
+<br>
+<a href="{% url 'entry' %}">Add a new entry</a>
+<br>
+{% for entry in entries %}
+{{ entry.entry_date }} <br>
+{{ entry.scale_feeling }} <br>
+{{ entry.goal_today }} <br>
+{{ entry.negative }} <br>
+{{ entry.overcome }} <br>
+{{ entry.goal_tomorrow }} <br>
+{% endfor %}
+{% else %}
+<p><a href="{% url 'login' %}">Login</p>
+{% endif %}
+{% endblock %}
