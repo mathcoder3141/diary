@@ -5,6 +5,9 @@ from .forms import RegisterForm, EntryQuestions
 from .models import Entry
 
 
+def index(request):
+    return render(request, 'index.html')
+
 def register(response):
     if response.method == 'POST':
         form = RegisterForm(response.POST)

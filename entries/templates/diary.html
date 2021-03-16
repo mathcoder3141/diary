@@ -7,7 +7,9 @@ Avaliable Entries
 
 {% block content %}
 {% if user.is_authenticated %}
-Welcome to your personal diary, {{ user|title }}! <br>
+<h1>Welcome to your personal diary, {{ user|title }}!</h1> <br>
+
+# TODO: Not the django logout page
 Not you? Please <a href="{% url 'custom_logout' %}">logout</a>
 <br>
 <a href="{% url 'entry' %}">Add a new entry</a>
