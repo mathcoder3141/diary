@@ -1,3 +1,14 @@
 {% extends 'base.html' %}
-
-You have been successfully logged out!
+{% block content %}
+<form class="form-signin">
+<div class="card">
+  <div class="card-header">
+	  <i class="fas fa-lock"></i>&nbsp;&nbsp;&nbsp; Logout
+  </div>
+    <div class="card-body">
+    <h5 class="card-title">Goodbye for now.</h5>
+    <p class="card-text">You have successfully logged out.</p>
+    </div>
+</div>
+</form>
+{% endblock %}

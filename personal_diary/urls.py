@@ -24,5 +24,6 @@ urlpatterns = [
     path('entry/', views.entry, name='entry'),
     path('diary/', views.diary, name='diary'),
     path('logout/', views.logout, name='custom_logout'),
+    path('settings/', views.settings, name='settings'),
     path('', include("django.contrib.auth.urls")),
 ]

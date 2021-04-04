@@ -7,22 +7,31 @@ Avaliable Entries
 
 {% block content %}
 {% if user.is_authenticated %}
-<h1>Welcome to your personal diary, {{ user|title }}!</h1> <br>
+<div class="container">
+  <div class="row">
 
-# TODO: Not the django logout page
-Not you? Please <a href="{% url 'custom_logout' %}">logout</a>
-<br>
-<a href="{% url 'entry' %}">Add a new entry</a>
-<br>
-{% for entry in entries %}
-{{ entry.entry_date }} <br>
-{{ entry.scale_feeling }} <br>
-{{ entry.goal_today }} <br>
-{{ entry.negative }} <br>
-{{ entry.overcome }} <br>
-{{ entry.goal_tomorrow }} <br>
-{% endfor %}
+    <div class="col-lg-24">
+      <h4>Latest Entry</h4>
+        <h4 align="right"><a href="{% url 'entry' %}">Add a new entry</a></h4>
+		<hr>
+		<center>
+		<div class="card" style="width: 40rem;">
+  <div class="card-body">
+    <h5 class="card-title">Entry Title</h5>
+    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-calendar"></i>&nbsp;{{ latest_entry.entry_date }} </h6>
+    <p class="card-text">On a scale of one to five, my feeling is at a {{ latest_entry.scale_feeling }}.
+        My goal for today was to {{ latest_entry.goal_today }}.
+        {{ latest_entry.negative }} didn't go well for me today; however, I was able to {{ latest_entry.overcome }}.
+        Tomorrow, I plan to {{ latest_entry.goal_tomorrow }}
+    </p>
+  </div>
+</div>
+            </center>
+    </div>
+  </div>
+</div>
 {% else %}
-<p><a href="{% url 'login' %}">Login</p>
+            <p><a href="{% url 'login' %}">Login</a></p>
+
 {% endif %}
 {% endblock %}

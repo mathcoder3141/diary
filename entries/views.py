@@ -8,12 +8,12 @@ from .models import Entry
 def index(request):
     return render(request, 'index.html')
 
+
 def register(response):
     if response.method == 'POST':
         form = RegisterForm(response.POST)
         if form.is_valid():
             form.save()
-
         return redirect("diary")
     else:
         form = RegisterForm()
@@ -24,18 +24,24 @@ def register(response):
 @login_required(login_url='/login')
 def entry(request):
     if request.method == 'POST':
-        filled_form = EntryQuestions(request.POST)
-        if filled_form.is_valid():
-            filled_form.save()
+        form = EntryQuestions(request.POST)
+        if form.is_valid():
+            form.save()
             return redirect('diary')
-    form = EntryQuestions()
+    else:
+        form = EntryQuestions()
     return render(request, "entry.html", {'form': form})
 
 
 @login_required(login_url='/login')
 def diary(request):
-    entries = Entry.objects.filter(user=request.user)
-    return render(request, 'diary.html', {'entries': entries})
+    latest_entry = Entry.objects.filter(user=request.user).order_by("-entry_date")[0]
+    return render(request, 'diary.html', {'latest_entry': latest_entry})
+
+
+@login_required(login_url='/login')
+def settings(request):
+    return render(request, "settings.html")
 
 
 @login_required(login_url='/login')
