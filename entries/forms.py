@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import Textarea
 from .models import Entry
 
 
@@ -28,4 +29,10 @@ class EntryQuestions(forms.ModelForm):
             "negative": "What didn\'t go well today?",
             "overcome": "What did you overcome today?",
             "goal_tomorrow": "What do you plan on learning or achieving tomorrow?"
+        }
+        widgets = {
+            'goal_today': Textarea(attrs={'cols': 4, 'rows': 2}),
+            'negative': Textarea(attrs={'cols': 4, 'rows': 2}),
+            'overcome': Textarea(attrs={'cols': 4, 'rows': 2}),
+            'goal_tomorrow': Textarea(attrs={'cols': 4, 'rows': 2})
         }

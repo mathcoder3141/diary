@@ -5,10 +5,21 @@ Login Here
 {% endblock %}
 
 {% block content %}
-     <form method="post" class="from-group">
-	{% csrf_token %}
-	{{ form }}
+<center>
+<h1>
+	<center>Diary</center>
+</h1>
+<form method="post" class="form-signin">
+	 {% csrf_token %}
+	{{ form.as_p }}
+	 <!--  <label>
+     <input type="checkbox" value="remember-me"> Remember me
+    </label> -->
 	<p>Don't have an accoount? Create one <a href="/register">here</a></p>
-	<button type="submit" class="btn btn-success">Login</button>
+	<div class="checkbox mb-3">
+	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </div>
     </form>
+</center>
+<p class="mt-5 mb-3 text-muted">&copy; 2021 Diary.gg</p>
 {% endblock %}
