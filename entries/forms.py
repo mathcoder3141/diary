@@ -31,8 +31,8 @@ class EntryQuestions(forms.ModelForm):
             "goal_tomorrow": "What do you plan on learning or achieving tomorrow?"
         }
         widgets = {
-            'goal_today' : Textarea(attrs={'cols': 4, 'rows': 2}),
-            'negative' : Textarea(attrs={'cols': 4, 'rows': 2}),
+            'goal_today': Textarea(attrs={'cols': 4, 'rows': 2}),
+            'negative': Textarea(attrs={'cols': 4, 'rows': 2}),
             'overcome': Textarea(attrs={'cols': 4, 'rows': 2}),
-            'goal_tomorrow' : Textarea(attrs={'cols': 4, 'rows': 2})
+            'goal_tomorrow': Textarea(attrs={'cols': 4, 'rows': 2})
         }

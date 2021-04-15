@@ -11,7 +11,7 @@ Daily Entry
     <div class="col-lg-24">
 		<center><h4><i class="fas fa-plus"></i>&nbsp; New Entry</h4></center>
 		<hr>
-        <form action="{% url 'diary' %}" method="POST">
+        <form action="{% url 'entry' %}" method="POST">
             {% csrf_token %}
 		<center>
 		<div class="card w-75" style="background-color:#F7F7F7 !important;border:1px solid #4682b4 !important;">
