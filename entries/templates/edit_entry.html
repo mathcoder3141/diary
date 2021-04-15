@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+Daily Entry
+{% endblock %}
+
+{% block content %}
+<div class="container overflow-auto" xmlns="http://www.w3.org/1999/html">
+  <div class="row">
+    <div class="col-lg-24">
+		<center><h4><i class="fas fa-refresh"></i>&nbsp; Update Entry</h4></center>
+		<hr>
+        <form action="POST">
+            {% csrf_token %}
+		<center>
+		<div class="card w-75" style="background-color:#F7F7F7 !important;border:1px solid #4682b4 !important;">
+<div class="card-body">
+    <h5 class="card-title">Hello, {{ user|title }}, how was your day?</h5>
+{% for field in entry.visible_fields %}
+    <div class="form-group">
+      {{ field.label_tag }}
+        {% render_field field class="form-control" %}
+    </div>
+  {% endfor %}
+    <br>
+      <a href="{% url 'diary' %}" class="btn btn-primary"><i class="fas fa-refresh"></i>&nbsp; Update Entry</a>
+  </div>
+        </div>
+        </center>
+            </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
