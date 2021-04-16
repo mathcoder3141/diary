@@ -26,9 +26,13 @@ def entry(request):
     form = EntryQuestions(request.POST)
     if request.method == 'POST':
         if form.is_valid():
-            # valid is YYYY-MM-DD
-            form.save()
+            # valid entry date is YYYY-MM-DD
+            form_entry = form.save(commit=False)
+            form_entry.user = request.user
+            form_entry.save()
             return redirect('diary')
+        else:
+            print(form.errors)
     else:
         form = EntryQuestions()
     return render(request, "entry.html", {'form': form})
@@ -36,7 +40,10 @@ def entry(request):
 
 @login_required(login_url='/login')
 def diary(request):
-    latest_entry = Entry.objects.order_by('-entry_date')[0]
+    if Entry.objects.filter(user=request.user).exists():
+        latest_entry = Entry.objects.filter(user=request.user)[0]
+    else:
+        latest_entry = Entry.objects.filter(user=request.user)
     return render(request, 'diary.html', {'latest_entry': latest_entry})
 
 

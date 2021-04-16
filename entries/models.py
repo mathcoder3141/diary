@@ -9,6 +9,7 @@ class Entry(models.Model):
     negative = models.TextField()
     overcome = models.TextField()
     goal_tomorrow = models.TextField()
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Entry #{self.id}'
