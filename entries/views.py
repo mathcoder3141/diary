@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from .forms import RegisterForm, EntryQuestions
 from .models import Entry
+
 
 
 def index(request):
@@ -22,12 +24,24 @@ def register(response):
 
 
 @login_required(login_url='/login')
-def diary(request):
+def latest_entry(request):
     if Entry.objects.filter(user=request.user).exists():
-        latest_entry = Entry.objects.filter(user=request.user)[0]
+        latest_entry = Entry.objects.filter(user=request.user).order_by('-entry_date')[0]
     else:
-        latest_entry = Entry.objects.filter(user=request.user)
-    return render(request, 'diary.html', {'latest_entry': latest_entry})
+        latest_entry = Entry.objects.filter(user=request.user).order_by('-entry_date')
+    return render(request, 'latest_entry.html', {'latest_entry': latest_entry})
+
+
+@login_required(login_url='/login')
+def manage_entries(request):
+    if Entry.objects.filter(user=request.user).exists():
+        entries = Entry.objects.filter(user=request.user).order_by('-entry_date')
+    else:
+        entries = Entry.objects.filter(user=request.user).order_by('-entry_date')
+    entries_paginated = Paginator(entries, 5)
+    entries_page = request.GET.get('page')
+    page_obj = entries_paginated.get_page(entries_page)
+    return render(request, 'entries.html', {'page_obj': page_obj})
 
 
 @login_required(login_url='/login')

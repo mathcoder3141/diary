@@ -1,0 +1,65 @@
+<!-- show all user entry -->
+
+{% extends 'base.html' %}
+{% block title %}
+Avaliable Entries
+{% endblock %}
+
+{% block content %}
+{% if entires.count != 0 %}
+<div class="container overflow-auto">
+  <div class="row">
+    <div class="col-lg-24">
+		<center><h4><i class="fas fa-book-open"></i>&nbsp; Manage Entries</h4></center>
+		<hr>
+		<ul class="list-group">
+          {% for entry in page_obj %}
+  <li class="list-group-item"><i class="fas fa-file-alt"></i>&nbsp; Entry on {{ entry.entry_date }} <BR>
+      <a href="#" class="card-link"><i class="fas fa-eye"></i> &nbsp;View Entry</a>
+	   <a href="#" class="card-link"><i class="fas fa-pencil-alt" style="color:#E49033;"></i> &nbsp;Edit Entry</a>
+      <a href="{% url 'delete_entry' entry.id %}" class="card-link"><i class="fas fa-times-circle" style="color:#FF0000;"></i>&nbsp;Delete Entry</a>
+</ul>
+      {% endfor %}
+    </div>
+</div>
+	<br>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+          {% if page_obj.number == i %}
+            <li class="page-item active" aria-current="page">
+              <span class="page-link">
+                {{ i }}
+                <span class="sr-only">(current)</span>
+              </span>
+            </li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+</div>
+</div>
+{% else %}
+    <p> No entries exist. Add a new entry to start tracking your growth! </p>
+{% endif %}
+{% endblock %}
