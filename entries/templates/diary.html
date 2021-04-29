@@ -6,7 +6,7 @@ Avaliable Entries
 {% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
+{% if latest_entry.count != 0 %}
 <div class="container">
   <div class="row">
 
@@ -14,6 +14,7 @@ Avaliable Entries
       <h4>Latest Entry</h4>
         <h4 align="right"><a href="{% url 'entry' %}">Add a new entry</a></h4>
 		<hr>
+
 		<center>
 		<div class="card" style="width: 40rem;">
   <div class="card-body">
@@ -22,8 +23,9 @@ Avaliable Entries
     <p class="card-text">On a scale of one to five, my feeling is at a {{ latest_entry.scale_feeling }}.
         My goal for today was to {{ latest_entry.goal_today }}.
         {{ latest_entry.negative }} didn't go well for me today; however, I was able to {{ latest_entry.overcome }}.
-        Tomorrow, I plan to {{ latest_entry.goal_tomorrow }}
+        Tomorrow, I plan to {{ latest_entry.goal_tomorrow }}.
     </p>
+      <a href="{% url 'delete_entry' latest_entry.pk %}" class="card-link"><i class="fas fa-times-circle" style="color:#FF0000;"></i>&nbsp;Delete Entry</a>
   </div>
 </div>
             </center>
@@ -31,7 +33,6 @@ Avaliable Entries
   </div>
 </div>
 {% else %}
-            <p><a href="{% url 'login' %}">Login</a></p>
-
+    <p> No entries exist. Add a new entry to start tracking your growth! </p>
 {% endif %}
 {% endblock %}
