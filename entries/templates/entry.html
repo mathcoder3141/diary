@@ -17,7 +17,7 @@ Daily Entry
 		<div class="card w-75" style="background-color:#F7F7F7 !important;border:1px solid #4682b4 !important;">
 <div class="card-body">
     <h5 class="card-title">Hello, {{ user|title }}, how was your day?</h5>
-{% for field in form.visible_fields %}
+{% for field in entry.visible_fields %}
     {{ date }}
     <div class="form-group">
       {{ field.label_tag }}
