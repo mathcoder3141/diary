@@ -62,6 +62,21 @@ def entry(request):
 
 
 @login_required(login_url='/login')
+def update_entry(request, pk):
+    entry = Entry.objects.get(pk=pk)
+    entry_form = EntryQuestions(instance=entry)
+    if request.method == 'POST':
+        complete_entry = EntryQuestions(request.POST, instance=entry)
+        if complete_entry.is_valid():
+            complete_entry.save()
+            entry_form = complete_entry
+            return render(request, 'edit_entry.html', {'entry_form': entry_form,
+                                                             'entry': entry})
+    return render(request, 'edit_entry.html', {'entry_form': entry_form,
+                                                             'entry': entry})
+
+
+@login_required(login_url='/login')
 def delete_entry(request, pk):
     del_entry = Entry.objects.get(pk=pk)
     del_entry.delete()
